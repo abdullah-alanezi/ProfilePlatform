@@ -1,0 +1,170 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<!-- Home Section -->
+<section id="home" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="col-xl-12 mb-4">
+                    <div class="card shadow-lg h-100">
+                        <div class="card-body pb-0">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <div class="text-center border-end">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Personal_photo.png" class="img-fluid avatar-xxl rounded" alt="Abdullah Mofareh's Photo">
+                                        
+                                        <h5 class="font-size-13 mb-0 text-uppercase">Abdullah Mofareh</h5>
+                                        <p class="mb-0 text-muted">Full Stack Developer</p>
+                                    </div>
+                                </div><!-- end col -->
+                                <div class="col-md-9">
+                                    <div class="ms-3">
+                                        <div>
+                                            <div >
+                                                <h4 class="card-title display-4">ABOUT ME</h4>
+                                                
+                                            </div>
+                                            
+                                            <div class="row my-4 form-control border-0">
+                                                <p class="lead">I am a software engineer, holding a bachelor's degree in software engineering from the University of Hail. I have programming skills and consider myself a Full-Stack developer, with practical experience in developing web applications.</p>
+                                            </div>
+                                            
+         
+                                        </div>
+                                        <div class="row my-4">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div class="mb-2">
+                                                        <i class="bi bi-envelope me-2"></i>
+                                                        <a href="mailto:{{user.email}}" class="text-muted">abdullah.alanezi.23@gmail.com</a>
+                                                      </div>
+                                                      
+                                                      <div>
+                                                        <i class="bi bi-phone me-2"></i>
+                                                        <a href="tel:12345678" class="text-muted">12345678</a>
+                                                      </div>
+                                                </div>
+                                            </div><!-- end col -->
+                                        </div><!-- end row -->
+                                     
+                                        <ul class="nav nav-tabs nav-tabs-custom border-bottom-0 mt-3 nav-justified">
+                                            <li class="nav-item">
+        
+                                                <a class="nav-link px-4" href="#" target="__blank">
+                                                    <i class="bi bi-linkedin text-dark"></i> 
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link px-4 "  href="#" target="__blank">
+                                                    <i class="bi bi-github text-dark"></i>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                
+                                                <a class="btn btn-dark" href="#">Update Profile</a>
+                                                
+                                            </li>
+        
+                                        </ul><!-- end ul -->
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                   </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- <h2 class="display-4 text-uppercase">About Me</h2>
+                <p class="lead">Write a brief description about yourself here.</p> -->
+                   <div class="col-xl-12 mb-4">
+                    <div class="card shadow-lg h-100">
+                        <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="text-center border-end">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Personal_photo.png" class="img-fluid avatar-xxl rounded" alt="Abdullah Mofareh's Photo">
+                                        
+                                        <h5 class="font-size-13 mb-0 text-uppercase">university of hail</h5>
+                                        
+                                    </div>
+                                </div><!-- end col -->
+                                <div class="col-md-9">
+                                    <div class="ms-3">
+                                        <div>
+                                            <div >
+                                                <h4 class="card-title display-4">Edcution</h4>
+                                                
+                                            </div>
+                                            
+                                            <div class="row my-4 form-control border-0">
+                                                <div class="col-3 text-start">
+                                                    <h5 class="font-size-13 mb-0 text-bold">Bachelor</h5>
+                                                    <p class="mb-0 text-muted">Software Engineering</p>
+                                                </div>
+                                            </div>
+                                            
+         
+                                        </div>
+                                     
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                   </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="display-4 text-uppercase">Portfolio</h2>
+                <!-- Add your portfolio content here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="display-4 text-uppercase">Blog/Articles</h2>
+                <!-- Add your blog content here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="display-4 text-uppercase">Contact</h2>
+                <!-- Add your contact form and information here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+
