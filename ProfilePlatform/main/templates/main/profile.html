@@ -6,13 +6,13 @@
 
         <nav  class="col-md-2 col-sm-4  profile-sidebar">
             <div class="text-center mt-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Personal_photo.png" class="img-fluid avatar-xxl rounded" alt="Profile Photo">
-                <h5 class="mt-3">Abdullah Mofareh</h5>
-                <small><p class="mb-0">Full Stack Developer</p></small>
+                <img src="{{user.profile.avatar.url}}" class="img-fluid avatar-xxl rounded" alt="Profile Photo">
+                <h5 class="mt-3">{{user.username}}</h5>
+                <small><p class="mb-0">{{user.profile.career}}</p></small>
                 <!-- Social Links -->
                 <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="{{user.profile.linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="{{user.profile.github}}" target="_blank"><i class="fab fa-github"></i></a>
                     <!-- Add more social links as needed -->
                 </div>
             </div>
@@ -45,16 +45,16 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-3 text-center border-end mb-3 mb-md-0">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Personal_photo.png" class="img-fluid avatar-xxl rounded" alt="Abdullah Mofareh's Photo">
-                                <h5 class="font-size-13 mb-0 text-uppercase">Abdullah Mofareh</h5>
-                                <p class="mb-0 text-muted">Full Stack Developer</p>
+                                <img src="{{user.profile.avatar.url}}" class="img-fluid avatar-xxl rounded" alt="Abdullah Mofareh's Photo">
+                                <h5 class="font-size-13 mb-0 text-uppercase">{{user.username}}</h5>
+                                <p class="mb-0 text-muted">{{user.profile.career}}</p>
                             </div>
                             <div class="col-md-9">
                                 <div class="ms-3">
                                     <div>
                                         <h4 class="card-title display-4">ABOUT ME</h4>
                                         <div class="row my-4">
-                                            <p class="lead">I am a software engineer, holding a bachelor's degree in software engineering from the University of Hail. I have programming skills and consider myself a Full-Stack developer, with practical experience in developing web applications.</p>
+                                            <p class="lead">{{user.profile.bio}}</p>
                                         </div>
                                     </div>
                                     <!-- Contact Info -->
@@ -63,7 +63,7 @@
                                             <div>
                                                 <div class="mb-2">
                                                     <i class="bi bi-envelope me-2"></i>
-                                                    <a href="mailto:abdullah.alanezi.23@gmail.com" class="text-muted">abdullah.alanezi.23@gmail.com</a>
+                                                    <a href="mailto:{{user.email}}" class="text-muted">{{user.email}}</a>
                                                 </div>
                                                 <div>
                                                     <i class="bi bi-phone me-2"></i>
@@ -75,12 +75,12 @@
                                     <!-- Social Links and Update Profile Button -->
                                     <ul class="nav nav-tabs nav-tabs-custom border-bottom-0 mt-3 nav-justified">
                                         <li class="nav-item">
-                                            <a class="nav-link  px-md-4" href="#" target="__blank">
+                                            <a class="nav-link  px-md-4" href="{{user.profile.linkedin}}" target="__blank">
                                                 <i class="bi bi-linkedin text-dark"></i>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link px-md-4" href="#" target="__blank">
+                                            <a class="nav-link px-md-4" href="{{user.profile.github}}" target="__blank">
                                                 <i class="bi bi-github text-dark"></i>
                                             </a>
                                         </li>
@@ -176,18 +176,14 @@
                                         <h4 class="display-4 text-center">Skills</h4>
                                         <hr>
                                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                                            {% for s in skills %}
                                             <div class="col">
-                                            <label for="">HTML</label>
+                                            <label for="">{{s.skill}}</label>
                                             <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar bg-dark" style="width: 80%">80%</div>
+                                                <div class="progress-bar bg-dark" style="width: {{s.proficiency_rate}}%">{{s.proficiency_rate}}%</div>
                                             </div>
                                             </div>
-                                            <div class="col">
-                                            <label for="">HTML</label>
-                                            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar bg-dark" style="width: 80%">80%</div>
-                                            </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>

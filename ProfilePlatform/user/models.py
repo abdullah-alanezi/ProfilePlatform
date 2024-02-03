@@ -13,7 +13,7 @@ class Profile(models.Model):
     github = models.URLField()
 
     def __str__(self) -> str:
-        return self.user
+        return self.user.username
 
 
 
@@ -29,7 +29,7 @@ class Education(models.Model):
 
 
     def __str__(self) -> str:
-        return self.qualification
+        return self.user.username
 
 class Skill(models.Model):
 
@@ -40,4 +40,4 @@ class Skill(models.Model):
     
 
     def __str__(self) -> str:
-        return self.skill
+        return self.user.username
