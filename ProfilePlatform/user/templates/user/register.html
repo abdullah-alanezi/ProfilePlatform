@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+
+
+{% block title %}Register{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="form-control" method="post" action="{% url 'user:register_view'%}">
+                {% csrf_token %}
+                <div>
+                    <label  for="">Username</label>
+                    <input class="form-control" type="text" name="username" placeholder="username" required minlength="6">
+                </div>
+                <div >
+                    <label  for="">Email</label>
+                    <input class="form-control" type="email" name="email" placeholder="@gmail.com" required>
+                </div>
+                <div>
+                    <label  for="">Password</label>
+                    <input class="form-control" type="password" name="password"  required minlength="6">
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
