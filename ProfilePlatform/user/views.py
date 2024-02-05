@@ -26,7 +26,8 @@ def log_in_view(request:HttpRequest):
                 return redirect('main:profile_view')
             else:
                 msg="please inter correct username and password"
-
+    else:
+        return redirect('main:profile_view')
     return render(request,'user/login.html',{'msg':msg})
 
 
