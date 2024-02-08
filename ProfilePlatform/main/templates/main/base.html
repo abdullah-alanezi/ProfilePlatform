@@ -66,10 +66,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="{% url 'main:home_view' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">#</a>
+                    <a class="nav-link" href="{% url 'main:profile_view' request.user.id %}">My Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">#</a>

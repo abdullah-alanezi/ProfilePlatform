@@ -9,7 +9,7 @@ def register_view(request:HttpRequest):
     if request.method == 'POST':
         user =User.objects.create_user(username=request.POST['username'],email=request.POST['email'],password=request.POST['password'])
         user.save()
-        return redirect('main:profile_view')
+        return redirect('main:home_view')
     return render(request,'user/register.html')
 
 
@@ -23,11 +23,11 @@ def log_in_view(request:HttpRequest):
 
             if user:
                 login(request,user)
-                return redirect('main:profile_view')
+                return redirect('main:home_view')
             else:
                 msg="please inter correct username and password"
     else:
-        return redirect('main:profile_view')
+        return redirect('main:home_view')
     return render(request,'user/login.html',{'msg':msg})
 
 
