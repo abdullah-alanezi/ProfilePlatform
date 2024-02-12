@@ -12,6 +12,9 @@ def home_view(request:HttpRequest):
 
 def profile_view(request:HttpRequest,user_id):
 
+    qualifications= Education.qualifications.choices
+    
     user = User.objects.get(id=user_id)
     skills = Skill.objects.filter(user = user)
-    return render(request,'main/profile.html',{'user':user,'skills':skills})
+    educations = Education.objects.filter(user = user)
+    return render(request,'main/profile.html',{'user':user,'skills':skills,'qualifications':qualifications,'educations':educations})

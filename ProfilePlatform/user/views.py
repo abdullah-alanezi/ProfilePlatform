@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
+from .models import Education
 # Create your views here.
 
 
@@ -36,3 +37,19 @@ def logout_view(request:HttpRequest):
     if request.user.is_authenticated:
         logout(request)
         return redirect('user:log_in_view')
+
+
+def add_education(request:HttpRequest):
+
+    user = request.user
+    education = Education(user = user)
+
+    if request.method == 'POST':
+        education.qualification = request.POST['qualification']
+        education.start_year = request.POST['start_year']
+        education.end_year = request.POST['end_year']
+        education.specialization = request.POST['specialization']
+        education.university_name = request.POST['university_name']
+        education.save()
+
+        return redirect('main:profile_view',user.id)
