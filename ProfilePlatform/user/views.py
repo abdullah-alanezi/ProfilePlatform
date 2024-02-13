@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
-from .models import Education
+from .models import Education,Skill
 # Create your views here.
 
 
@@ -52,4 +52,19 @@ def add_education(request:HttpRequest):
         education.university_name = request.POST['university_name']
         education.save()
 
+        return redirect('main:profile_view',user.id)
+    
+
+
+
+def add_skill(request:HttpRequest):
+
+    user = request.user
+    skill = Skill(user=user)
+    if request.method == 'POST':
+        proficiency_rate_to_int =int(request.POST['proficiency_rate'])
+        skill.skill=request.POST['skill']
+        skill.proficiency_rate= proficiency_rate_to_int
+        skill.save()
+        
         return redirect('main:profile_view',user.id)
