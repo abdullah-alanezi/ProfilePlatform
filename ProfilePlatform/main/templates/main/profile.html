@@ -1,13 +1,13 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid vh-100">
     <div class="row">
 
         <nav  class="col-md-2 col-sm-4  profile-sidebar">
             <div class="text-center mt-4">
                 <img src="{{user.profile.avatar.url}}" class="img-fluid avatar-xxl rounded" alt="Profile Photo">
-                <h5 class="mt-3">{{user.username}}</h5>
+                <h5 class="mt-3">{{user.first_name}} {{user.last_name}}</h5>
                 <small><p class="mb-0">{{user.profile.career}}</p></small>
                 <!-- Social Links -->
                 <div class="social-links">
@@ -46,7 +46,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-3 text-center border-end mb-3 mb-md-0">
                                 <img src="{{user.profile.avatar.url}}" class="img-fluid avatar-xxl rounded" alt="Abdullah Mofareh's Photo">
-                                <h5 class="font-size-13 mb-0 text-uppercase">{{user.username}}</h5>
+                                <h5 class="font-size-13 mb-0 text-uppercase">{{user.first_name}} {{user.last_name}}</h5>
                                 <p class="mb-0 text-muted">{{user.profile.career}}</p>
                             </div>
                             <div class="col-md-9">
@@ -102,15 +102,15 @@
                                     <div>
                                         
                                         {% if request.user.is_authenticated and request.user.id == user.id %}
-                                        <div class="row">
+                                        <div class="row align-items-center">
 
                                             <div class="col-10">
                                                 <h4 class="display-4 text-center">Education</h4> 
     
                                             </div>
                                             <div class="col-2 d-flex align-items-center">
-                                                <button type="button" class="btn btn-primary w-40" data-toggle="modal" data-target="#addeducationModal">
-                                                    Add Education
+                                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#addeducationModal">
+                                                    <small>Add Education</small>
                                                   </button> 
                                               </div>
                                         </div>
@@ -249,7 +249,7 @@
     
                                             </div>
                                             <div class="col-2 d-flex align-items-center">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSkillModal">
+                                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#addSkillModal">
                                                     Add Skill
                                                   </button> 
                                               </div>

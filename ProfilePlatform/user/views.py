@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
-from .models import Education,Skill
+from .models import Education,Skill, Profile
 # Create your views here.
 
 
@@ -37,6 +37,34 @@ def logout_view(request:HttpRequest):
     if request.user.is_authenticated:
         logout(request)
         return redirect('user:log_in_view')
+
+
+def update_profile(request:HttpRequest,user_id):
+    user = User.objects.get(id=user_id)
+    try:
+
+        profile = user.profile
+    except:
+        profile = Profile(user=user)
+    
+    if request.user.is_authenticated and user.id == request.user.id:
+
+        if request.method == 'POST':
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.email = request.POST['email']
+            user.save()
+
+            profile.avatar = request.FILES['avatar']
+            profile.bio = request.POST['bio']
+            profile.career = request.POST['career']
+            profile.linkedin = request.POST['linkedin']
+            profile.github = request.POST['github']
+            profile.save()
+
+            return redirect('main:profile_view',user_id)
+    
+    return render(request,'user/update_profile.html')
 
 
 def add_education(request:HttpRequest):

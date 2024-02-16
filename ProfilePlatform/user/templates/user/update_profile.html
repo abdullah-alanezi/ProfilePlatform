@@ -6,5 +6,56 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <form class="row" action="{% url 'user:update_profile' request.user.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-4" >
+                    <label for="">First Name:</label>
+                    <input class="form-control" type="text" name="first_name" required value="{{user.first_name}}">
+                </div> 
+
+                <div class="col-4" >
+                    <label for="">Last Name:</label>
+                    <input class="form-control" type="text" required name="last_name" value="{{user.last_name}}">
+                </div>
+
+                <div class="col-4" >
+                    <label for="">Email:</label>
+                    <input class="form-control" type="email" name="email" required value="{{user.email}}">
+                </div> 
+
+                <div class="col-4" >
+                    <label for="">Bio:</label>
+                    <textarea class="form-control" name="bio" id="" cols="30" rows="10">{{user.profile.bio}}</textarea>
+                </div> 
+                <div class="col-4"  >
+                    <label for="">Avatar:</label>
+                    <input class="form-control" type="file" name="avatar" required>
+                </div>
+
+                <div class="col-4" >
+                    <label for="">Career:</label>
+                    <input class="form-control" type="text" name="career" required value="{{user.profile.career}}" >
+                </div>
+
+                <div class="col-4" >
+                    <label for="">Lnkedin Link:</label>
+                    <input class="form-control" type="url" name="linkedin" required value="{{user.profile.linkedin}}" >
+                </div>
+
+                <div class="col-4"  >
+                    <label for="">GitHub Link:</label>
+                    <input class="form-control" type="url" name="github" required value="{{user.profile.github}}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
