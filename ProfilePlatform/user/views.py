@@ -83,6 +83,17 @@ def add_education(request:HttpRequest):
         return redirect('main:profile_view',user.id)
     
 
+def delete_education_view(request:HttpRequest,education_id):
+    
+    education = Education.objects.get(id = education_id)
+    if request.user.is_authenticated:
+        
+
+        education.delete()
+        return redirect('main:profile_view',request.user.id)
+
+
+
 
 
 def add_skill(request:HttpRequest):
