@@ -10,5 +10,6 @@ urlpatterns =[
     path('add/education',views.add_education,name= 'add_education'),
     path('add/skill/',views.add_skill,name='add_skill'),
     path('update/profile/<user_id>/',views.update_profile,name='update_profile'),
-    path('delete/education/<education_id>/',views.delete_education_view,name='delete_education_view')
+    path('delete/education/<education_id>/',views.delete_education_view,name='delete_education_view'),
+    path('delete/skill/<skill_id>/',views.delete_skill, name='delete_skill'),
 ]
