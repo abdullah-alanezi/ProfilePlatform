@@ -54,8 +54,8 @@ def update_profile(request:HttpRequest,user_id):
             user.last_name = request.POST['last_name']
             user.email = request.POST['email']
             user.save()
-
-            profile.avatar = request.FILES['avatar']
+            if 'avatar' in request.FILES:
+                profile.avatar = request.FILES['avatar']
             profile.bio = request.POST['bio']
             profile.career = request.POST['career']
             profile.linkedin = request.POST['linkedin']
