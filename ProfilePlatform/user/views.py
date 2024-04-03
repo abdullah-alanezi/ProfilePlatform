@@ -108,12 +108,14 @@ def add_skill(request:HttpRequest):
         
         return redirect('main:profile_view',user.id)
     
-def delete_skill(request:HttpRequest,skill_id):
+def delete_skill(request:HttpRequest):
+    if request.method == 'POST':
+        skill_id = request.POST['skill']
+        
+        skill = Skill.objects.get(id=skill_id)
 
-    skill = Skill.objects.get(id= skill_id)
+        if request.user.is_authenticated:
 
-    if request.user.is_authenticated:
+         skill.delete()
 
-        skill.delete()
-
-        return redirect('main:profile_view',request.user.id)
+    return redirect('main:profile_view',request.user.id)
