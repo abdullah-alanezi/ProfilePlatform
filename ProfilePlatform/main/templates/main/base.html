@@ -73,10 +73,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'main:profile_view' request.user.id %}">My Profile</a>
                 </li>
-                {% endif %}
+                {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">#</a>
+                    <a class="nav-link" href="{% url 'user:log_in_view' %}">log in</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">#</a>
                 </li>
