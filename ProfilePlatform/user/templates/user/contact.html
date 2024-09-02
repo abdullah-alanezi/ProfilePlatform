@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div>
+    <form method="post" action="{% url 'user:contact_view' %}">
+        {% csrf_token %}
+        <label for="email">To Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+        <label for="message">Message:</label>
+        <textarea name="message" id=""></textarea>
+        <button type="submit" >send</button>
+        </form>
+</div>
+
+{% endblock %}

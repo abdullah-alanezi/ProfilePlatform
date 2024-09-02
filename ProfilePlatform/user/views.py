@@ -1,9 +1,20 @@
 from django.shortcuts import render,redirect
-from django.http import HttpRequest
+from django.http import HttpRequest,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
 from .models import Education,Skill, Profile
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
+
+def send_custom_email(to_email, subject, message):
+    send_mail(
+        subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [to_email],
+        fail_silently=False,
+    )
 
 
 def register_view(request:HttpRequest):
@@ -119,3 +130,16 @@ def delete_skill(request:HttpRequest):
          skill.delete()
 
     return redirect('main:profile_view',request.user.id)
+
+
+
+def contact_view(request:HttpRequest):
+
+    if request.method == 'POST':
+        to_email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        send_custom_email(to_email, subject, message)
+        return HttpResponse("Email sent successfully!")
+
+    return render(request,"user/contact.html")

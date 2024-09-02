@@ -12,4 +12,5 @@ urlpatterns =[
     path('update/profile/<user_id>/',views.update_profile,name='update_profile'),
     path('delete/education/<education_id>/',views.delete_education_view,name='delete_education_view'),
     path('delete/skill/',views.delete_skill, name='delete_skill'),
+    path("contact/",views.contact_view,name="contact_view"),
 ]
