@@ -93,6 +93,14 @@
                 <div class="card shadow-lg bg-white border border-0 my-5">
                     <div class="card-body">
                         <h4 class="display-4 text-center">Education</h4>
+                        {% if request.user.is_authenticated and user.id == request.user.id %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEducationModal">
+                            Add Education
+                          </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEducationModal">
+                            Delete Education
+                          </button>
+                          {% endif %}
                         <hr>
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             {% for education in educations %}
@@ -110,6 +118,79 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+                <!-- Add Education Modal -->
+<div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{% url 'user:add_education' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="qualification" class="form-label">Qualification</label>
+              <select class="form-select" id="qualification" name="qualification" required>
+                {% for key, value in qualifications %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="university-name" class="form-label">University Name</label>
+              <input type="text" class="form-control" id="university-name" name="university_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="specialization" class="form-label">Specialization</label>
+              <input type="text" class="form-control" id="specialization" name="specialization" required>
+            </div>
+            <div class="mb-3">
+              <label for="start-year" class="form-label">Start Year</label>
+              <input type="date" class="form-control" id="start_year" name="start_year" required>
+            </div>
+            <div class="mb-3">
+              <label for="end-year" class="form-label">End Year</label>
+              <input type="date" class="form-control" id="end_year" name="end_year" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Education</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Education Modal -->
+  <div class="modal fade" id="deleteEducationModal" tabindex="-1" aria-labelledby="deleteEducationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteEducationModalLabel">Delete Education</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{% url 'user:delete_education_view' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="education-id" class="form-label">Select Education to Delete</label>
+              <select class="form-select" id="education-id" name="education-id" required>
+                {% for education in educations %}
+                <option value="{{ education.id }}">{{ education.qualification }} - {{ education.university_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete Education</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
             </section>
             
             <!-- Courses Section -->
@@ -130,6 +211,12 @@
                 <div class="card shadow-lg bg-white border border-0 my-5">
                     <div class="card-body">
                         <h4 class="display-4 text-center">Skills</h4>
+                        {% if request.user.is_authenticated and user.id == request.user.id %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSkillModal">Add Skill</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSkillModal">
+                            Delete Skill
+                          </button>
+                          {% endif %}
                         <hr>
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             <!-- Skill Progress Bars -->
@@ -144,6 +231,66 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Add Skill Modal -->
+<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'user:add_skill' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSkillModalLabel">Add Skill</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="skillName" class="form-label">Skill</label>
+                        <input type="text" class="form-control" id="skillName" name="skill" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="proficiencyRate" class="form-label">Proficiency Rate</label>
+                        <input type="number" class="form-control" id="proficiencyRate" name="proficiency_rate" min="0" max="100" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Skill Modal -->
+<div class="modal fade" id="deleteSkillModal" tabindex="-1" aria-labelledby="deleteSkillModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteEducationModalLabel">Delete Skill</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <form method="post" action="{% url 'user:delete_skill' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="education-id" class="form-label">Select Skills to Delete</label>
+                  <select class="form-select" id="education-id" name="skill-id" required>
+                    {% for skill in skills %}
+                    <option value="{{ skill.id }}">{{ skill.skill }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-danger">Delete Skill</button>
+              </form>
+          </div>
+        </div>
+
+</div>
+
+
             </section>
         </main>
     </div>

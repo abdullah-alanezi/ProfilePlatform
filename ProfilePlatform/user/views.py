@@ -94,13 +94,16 @@ def add_education(request:HttpRequest):
         return redirect('main:profile_view',user.id)
     
 
-def delete_education_view(request:HttpRequest,education_id):
+def delete_education_view(request:HttpRequest):
     
-    education = Education.objects.get(id = education_id)
+    
     if request.user.is_authenticated:
-        
+        if request.POST:
 
-        education.delete()
+            education = Education.objects.get(id = request.POST["education-id"])
+
+
+            education.delete()
         return redirect('main:profile_view',request.user.id)
 
 
@@ -121,7 +124,7 @@ def add_skill(request:HttpRequest):
     
 def delete_skill(request:HttpRequest):
     if request.method == 'POST':
-        skill_id = request.POST['skill']
+        skill_id = request.POST['skill-id']
         
         skill = Skill.objects.get(id=skill_id)
 
