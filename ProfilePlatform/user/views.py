@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
-from .models import Education,Skill, Profile
+from .models import Education,Skill, Profile,Course
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 
 def send_custom_email(to_email, subject, message):
@@ -49,7 +51,7 @@ def logout_view(request:HttpRequest):
         logout(request)
         return redirect('user:log_in_view')
 
-
+@login_required
 def update_profile(request:HttpRequest,user_id):
     user = User.objects.get(id=user_id)
     try:
@@ -71,13 +73,15 @@ def update_profile(request:HttpRequest,user_id):
             profile.career = request.POST['career']
             profile.linkedin = request.POST['linkedin']
             profile.github = request.POST['github']
+            profile.phone_number = request.POST["phone_number"]
             profile.save()
-
-            return redirect('main:profile_view',user_id)
+            messages.success(request, "Your profile was updated successfully!")
+                
+            #return redirect('main:profile_view',user_id)
     
     return render(request,'user/update_profile.html')
 
-
+@login_required
 def add_education(request:HttpRequest):
 
     user = request.user
@@ -93,7 +97,7 @@ def add_education(request:HttpRequest):
 
         return redirect('main:profile_view',user.id)
     
-
+@login_required
 def delete_education_view(request:HttpRequest):
     
     
@@ -109,7 +113,7 @@ def delete_education_view(request:HttpRequest):
 
 
 
-
+@login_required
 def add_skill(request:HttpRequest):
 
     user = request.user
@@ -121,7 +125,7 @@ def add_skill(request:HttpRequest):
         skill.save()
         
         return redirect('main:profile_view',user.id)
-    
+@login_required    
 def delete_skill(request:HttpRequest):
     if request.method == 'POST':
         skill_id = request.POST['skill-id']
@@ -146,3 +150,34 @@ def contact_view(request:HttpRequest):
         return HttpResponse("Email sent successfully!")
 
     return render(request,"user/contact.html")
+
+
+@login_required
+def add_course(request:HttpRequest):
+
+    
+    course = Course(user = request.user)
+
+    if request.method == "POST":
+
+        course.title = request.POST["title"]
+        course.description = request.POST["description"]
+        course.hour = request.POST["hour"]
+
+        course.save()
+
+        return redirect('main:profile_view',request.user.id)
+    
+
+
+
+@login_required
+def delete_course_view(request:HttpRequest):
+
+    if request.method == "POST":
+    
+        course = Course.objects.get(id= request.POST["course-id"])
+
+        course.delete()
+
+        return redirect('main:profile_view',request.user.id)

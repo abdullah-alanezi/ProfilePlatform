@@ -18,22 +18,40 @@
                 </div>
             </div>
             <hr class="bg-light">
-            <div class="p-3">
-                <ul class="nav flex-column">
-                    <li class="list-group-item">
-                        <a class="list-group-item-action active" href="#about">About</a>
-                    </li>
-                    <li class="list-group-item pt-3">
-                        <a class="list-group-item-action" href="#Education">Education</a>
-                    </li>
-                    <li class="list-group-item pt-3">
-                        <a class="list-group-item-action" href="#Courses">Courses</a>
-                    </li>
-                    <li class="list-group-item pt-3">
-                        <a class="list-group-item-action" href="#Skills">Skills</a>
-                    </li>
-                </ul>
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">About</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Education">Education</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Courses">Courses</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Skills">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Project</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Expertise</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
         </nav>
 
         <main class="col-md-9 ms-sm-auto profile-content m-0 p-0">
@@ -59,7 +77,7 @@
                                             </div>
                                             <div>
                                                 <i class="bi bi-phone me-2"></i>
-                                                <a href="tel:12345678" class="text-muted">12345678</a>
+                                                <a href="tel:12345678" class="text-muted">{{user.profile.phone_number}}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +112,7 @@
                     <div class="card-body">
                         <h4 class="display-4 text-center">Education</h4>
                         {% if request.user.is_authenticated and user.id == request.user.id %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEducationModal">
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addEducationModal">
                             Add Education
                           </button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEducationModal">
@@ -198,12 +216,87 @@
                 <div class="card shadow-lg bg-light border border-0 my-5">
                     <div class="card-body">
                         <h4 class="display-4 text-center">Courses</h4>
+                        {% if request.user.is_authenticated and user.id == request.user.id %}
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                            Add Course
+                          </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCourseModal">
+                            Delete Course
+                          </button>
+                          {% endif %}
                         <hr>
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <!-- Course Cards -->
-                        </div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            
+                                {% for course in courses %}
+                                <div class="">
+                                    <div class="card bg-light shadow-lg h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title font-size-13 mb-2 text-bold">{{ course.title }}</h5>
+                                            <small class="text-muted">Hour: {{ course.hour }}</small>
+                                            <p class="card-text mb-2 text-bold">{{ course.description }}</p>
+                                            <p class="card-text mb-0 text-muted"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                        
                     </div>
                 </div>
+
+                <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="{% url 'user:add_course' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                              <label for="title" class="form-label">Title</label>
+                              <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="specialization" class="form-label">description</label>
+                              <textarea class="form-control" name="description" id=""></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label for="hourr" class="form-label">Hour</label>
+                              <input type="number" class="form-control" id="hour" name="hour" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark">Add Education</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteEducationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteEducationModalLabel">Delete Course</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="{% url 'user:delete_course_view' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                              <label for="education-id" class="form-label">Select Education to Delete</label>
+                              <select class="form-select" id="education-id" name="course-id" required>
+                                {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.title }} - {{ course.hour }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Delete Course</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </section>
             
             <!-- Skills Section -->
@@ -212,7 +305,7 @@
                     <div class="card-body">
                         <h4 class="display-4 text-center">Skills</h4>
                         {% if request.user.is_authenticated and user.id == request.user.id %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSkillModal">Add Skill</button>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addSkillModal">Add Skill</button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSkillModal">
                             Delete Skill
                           </button>
@@ -222,12 +315,17 @@
                             <!-- Skill Progress Bars -->
                             {% for s in skills %}
                             <div class="col">
-                            <label for="">{{s.skill}}</label>
-                            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar" style="width: {{s.proficiency_rate}}% ;background-color:green;">{{s.proficiency_rate}}%</div>
-                            </div>
+                                <label for="">{{s.skill}}</label>
+                                <div class="progress" role="progressbar" aria-label="Example with label" 
+                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-dark" data-rate="{{s.proficiency_rate}}" 
+                                        style="width: 0%;">
+                                        0%
+                                    </div>
+                                </div>
                             </div>
                             {% endfor %}
+                            
                         </div>
                     </div>
                 </div>
@@ -290,7 +388,50 @@
 
 </div>
 
-
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const progressBars = document.querySelectorAll('.progress-bar');
+      
+          // Function to animate a single progress bar
+          const animateProgress = (bar) => {
+              const targetRate = parseInt(bar.getAttribute('data-rate')); // Target percentage
+              let currentRate = 0; // Start at 0%
+              const increment = 1; // Change step for smoother/faster animation
+              const duration = 15; // Speed of animation in ms
+      
+              const updateProgress = () => {
+                  if (currentRate <= targetRate) {
+                      bar.style.width = currentRate + '%';
+                      bar.textContent = currentRate + '%';
+                      currentRate += increment;
+                      setTimeout(updateProgress, duration);
+                  } else {
+                      bar.style.width = targetRate + '%'; // Ensure final exact value
+                      bar.textContent = targetRate + '%';
+                  }
+              };
+      
+              updateProgress(); // Start animation
+          };
+      
+          // Intersection Observer setup
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const bar = entry.target;
+                      if (!bar.classList.contains('animated')) { 
+                          bar.classList.add('animated'); // Avoid re-triggering
+                          animateProgress(bar);
+                      }
+                  }
+              });
+          }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+      
+          // Observe each progress bar
+          progressBars.forEach(bar => observer.observe(bar));
+      });
+      
+      </script>
             </section>
         </main>
     </div>

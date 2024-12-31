@@ -7,6 +7,7 @@ class Profile(models.Model):
     
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     avatar = models.ImageField(upload_to='images/',default='images/default.jpg')
+    phone_number = models.IntegerField(default=0)
     bio = models.TextField()
     career = models.CharField(max_length=255)
     linkedin = models.URLField()
@@ -41,3 +42,15 @@ class Skill(models.Model):
 
     def __str__(self) -> str:
         return self.user.username
+    
+
+
+
+class Course(models.Model):
+    user = models.ForeignKey(User,on_delete = models.CASCADE)
+    title = models.CharField(max_length = 255)
+    description = models.TextField()
+    hour = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return self.title

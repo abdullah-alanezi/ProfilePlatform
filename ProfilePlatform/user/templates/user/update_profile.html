@@ -8,8 +8,33 @@
 
 <div class="container">
     <div class="row">
+
         <div class="col-12">
 
+                    <!-- Bootstrap Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="messageModalLabel">Message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Messages Content -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
             <form class="row" action="{% url 'user:update_profile' request.user.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="col-4" >
@@ -25,16 +50,25 @@
                 <div class="col-4" >
                     <label for="">Email:</label>
                     <input class="form-control" type="email" name="email" required value="{{user.email}}">
-                </div> 
+                </div>
 
-                <div class="col-4" >
-                    <label for="">Bio:</label>
-                    <textarea class="form-control" name="bio" id="" cols="30" rows="10">{{user.profile.bio}}</textarea>
-                </div> 
+
+
                 <div class="col-4"  >
                     <label for="">Avatar:</label>
                     <input class="form-control" type="file" name="avatar" >
                 </div>
+                <div class="col-4">
+                    <label for="phone_number">Phone Number:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">+966</span>
+                        </div>
+                        <input class="form-control" type="number" name="phone_number" max="9999999999" required value="{{user.profile.phone_number}}">
+                    </div>
+                </div>
+                
+                
 
                 <div class="col-4" >
                     <label for="">Career:</label>
@@ -50,12 +84,27 @@
                     <label for="">GitHub Link:</label>
                     <input class="form-control" type="url" name="github" required value="{{user.profile.github}}">
                 </div>
+                <div class="col-4" >
+                    <label for="">Bio:</label>
+                    <textarea class="form-control" name="bio" id="" cols="30" rows="10">{{user.profile.bio}}</textarea>
+                </div> 
 
                 <button type="submit" class="btn btn-primary">Update</button>
                 
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% if messages %}
+                var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+                messageModal.show();
+            {% endif %}
+        });
+    </script>
+    
 </div>
+
 
 {% endblock %}

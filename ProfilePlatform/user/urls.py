@@ -13,4 +13,6 @@ urlpatterns =[
     path('delete/education/',views.delete_education_view,name='delete_education_view'),
     path('delete/skill/',views.delete_skill, name='delete_skill'),
     path("contact/",views.contact_view,name="contact_view"),
+    path("add/course/",views.add_course , name="add_course"),
+    path("delete/course/",views.delete_course_view,name="delete_course_view")
 ]
